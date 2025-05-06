@@ -1,0 +1,13 @@
+@startuml
+actor User
+participant BowlingGame
+participant Player
+participant Frame
+
+User -> BowlingGame : addRoll(int pins)
+BowlingGame -> Player : roll(int pins)
+Player -> Frame : roll(int pins)
+Frame -> Frame : Update pinsKnockedDown[]
+Frame -> Frame : Check if frame is complete
+Player -> BowlingGame : Notify if game is complete
+@enduml

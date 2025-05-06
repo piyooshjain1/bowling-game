@@ -1,0 +1,60 @@
+@startuml
+namespace Game {
+    class Person {
+        - name : std::string
+        + Person(const std::string& name)
+        + getName() : const std::string&
+    }
+
+    class Player {
+        - frames : std::vector<std::unique_ptr<Frame>>
+        - currentFrameIndex : int
+        + Player(const std::string& name)
+        + roll(int pins)
+        + calculateScore(const std::shared_ptr<IScoringStrategy>) : int
+        + isGameComplete() : bool
+    }
+
+    class Frame {
+        - pinsKnockedDown : int[3]
+        - rollCount : int
+        - isTenthFrame : bool
+        + Frame(bool isTenthFrame = false)
+        + roll(int pins)
+        + isComplete() : bool
+        + isStrike() : bool
+        + isSpare() : bool
+        + getFirstRoll() : int
+        + getSecondRoll() : int
+        + getThirdRoll() : int
+    }
+
+    class BowlingGame {
+        - players : std::vector<std::shared_ptr<Player>>
+        - currentPlayerIndex : int
+        - scoringStrategy : std::shared_ptr<IScoringStrategy>
+        + BowlingGame()
+        + addPlayer(const std::string& name)
+        + addRoll(int pins)
+        + printPlayerNames() : void
+        + isGameComplete() : bool
+        + setScoringStrategy(std::shared_ptr<IScoringStrategy>)
+        + selectPlayerByIndex(int index)
+        + displayResult() : void
+    }
+
+    interface IScoringStrategy {
+        + calculateScore(const std::vector<std::unique_ptr<Frame>>&) : int
+    }
+
+    class StandardScoring {
+        + calculateScore(const std::vector<std::unique_ptr<Frame>>&) : int
+    }
+
+    Person <|-- Player
+    Player "1" *-- "10..*" Frame
+    BowlingGame "1" *-- "1..*" Player
+    BowlingGame "1" *-- "1" IScoringStrategy
+    IScoringStrategy <|.. StandardScoring
+}
+@enduml

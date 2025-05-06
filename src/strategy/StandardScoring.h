@@ -1,11 +1,17 @@
 #ifndef STANDARD_SCORING_H
 #define STANDARD_SCORING_H
 
-#include "ScoringStrategy.h"
+#include "IScoringStrategy.h"
+#include "../game/Frame.h"
+#include <vector>
 
-class StandardScoring : public ScoringStrategy {
+namespace Game {
+
+class StandardScoring : public IScoringStrategy {
 public:
-    int calculateScore(const std::vector<int>& frames) override;
+    int calculateScore( std::vector<std::unique_ptr<Frame>>const & frames)  override;
 };
+
+} // namespace Game
 
 #endif // STANDARD_SCORING_H

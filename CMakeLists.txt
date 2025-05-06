@@ -1,14 +1,16 @@
-# Set the project name and C++ standard
-project(bowling-game)
+# Minimum CMake version
+cmake_minimum_required(VERSION 3.10)
+
+# Project name and C++ standard
+project(BowlingGame CXX)
 set(CMAKE_CXX_STANDARD 17)
-
-# Include header files
-target_include_directories(bowling-game PRIVATE include)
-
-# Add source files
-file(GLOB_RECURSE SOURCES "src/*.cpp")
-add_executable(bowling-game ${SOURCES})
-
-# Enable testing and add test directory
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# Enable testing
 enable_testing()
+# Include directories
+include_directories(include)
+
+# Add subdirectories
+add_subdirectory(src)
 add_subdirectory(tests)
+
