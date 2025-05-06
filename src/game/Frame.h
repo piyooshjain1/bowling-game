@@ -3,14 +3,19 @@
 
 class Frame {
 private:
-    int pinsKnockedDown[2]; // Array to hold the number of pins knocked down in two rolls
-    int rollCount; // Count of rolls in the frame
+    int pinsKnockedDown[3]; // Array to hold the number of pins knocked down (up to 3 rolls for the 10th frame)
+    int rollCount;
+    bool isTenthFrame;
 
 public:
-    Frame(); // Constructor to initialize the frame
-    void roll(int pins); // Method to record a roll
-    int score() const; // Method to calculate the score of the frame
-    bool isComplete() const; // Method to check if the frame is complete
+    Frame(bool isTenthFrame = false);
+    void roll(int pins);
+    bool isComplete() const;
+    bool isStrike() const;
+    bool isSpare() const;
+    int getFirstRoll() const;
+    int getSecondRoll() const;
+    int getThirdRoll() const; // For the 10th frame
 };
 
 #endif // FRAME_H
